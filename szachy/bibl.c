@@ -3,19 +3,7 @@
 #include "bibl.h"
 
 
-void new_szachownica (int **sz, struct Figura empty){
-    int i, j, k;
-    int **szachownica =(int**)malloc(8*sizeof(int*)); // alokacja pamięci dla wierszy
-    for(k=0; k<8; k++)
-        szachownica[k]=(int*)malloc(8*sizeof(int));
-        
-    for (i=7; i>=0; i--){
-    for(j=0; j<8; j++){
-        szachownica[j][i]=empty.symbol[0];
-    }
-    
-}
-}
+
 
 void wstaw(int **szachownica, struct Figura f){
     int i, j;
