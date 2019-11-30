@@ -4,6 +4,9 @@ struct Figura{
     int y;
     
 };
+
+
+
 void wstaw(int **szachownica, struct Figura f);
 void usun(int **szachownica, struct Figura f);
 void przesun(int **szachownica, struct Figura *f, int x, int y);
