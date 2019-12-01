@@ -26,15 +26,16 @@ void usun(int **szachownica, struct Figura f){
     
 }
 }
-void przesun(int **szachownica, struct Figura *f, int x, int y){
+void przesun(int **szachownica, struct Figura *f, struct Wektor ruch){
     usun(szachownica, *f);
-    f->x+=x;
-    f->y+=y;
+    f->x+=ruch.x;
+    f->y+=ruch.y;
     wstaw(szachownica, *f);
 }
 
 void wyswietl(int **szachownica){
     int i, j;
+    printf("\n");
     for (i=7; i>=0; i--){
         printf("|");
     for(j=0; j<8; j++){

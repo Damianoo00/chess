@@ -5,11 +5,13 @@
 
 
 int main(){
-    struct Figura pionek [3] = {{"P", 1, 1},{"P", 2, 2},{"P", 1, 3}};
+    struct Wektor pionek_r[2] = {{0,1},{0,2}}; 
+    struct Figura pionek [2] = {{"P", 1, 1, pionek_r},{"P", 2, 1, pionek_r}};
     struct Figura empty = {" "};
     
+    
 int i, j, k;
-    int **szachownica =(int**)malloc(8*sizeof(int*)); // alokacja pamięci dla wierszy
+    int **szachownica =(int**)malloc(8*sizeof(int*)); 
     for(k=0; k<8; k++)
         szachownica[k]=(int*)malloc(8*sizeof(int));
         
@@ -23,11 +25,12 @@ int i, j, k;
     
 wstaw (szachownica, pionek[0]);
 wstaw (szachownica, pionek[1]);
-wstaw (szachownica, pionek[2]);
-przesun(szachownica, &pionek, 7, 7);
+wyswietl(szachownica);
+przesun(szachownica, &pionek[0], pionek[0].ruch[0]);
+przesun(szachownica, &pionek[1], pionek[1].ruch[1]);
 wyswietl(szachownica);
    
-
+free(szachownica);
 
 
 
