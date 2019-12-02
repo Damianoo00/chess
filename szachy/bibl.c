@@ -46,3 +46,20 @@ void wyswietl(int **szachownica){
     printf("\n");
 }
 }
+
+void file_send(int **szachownica){
+    int i, j;
+    FILE *fin;
+    fin = fopen("dane", "w");
+    fprintf(fin, "\n");
+    for (i=7; i>=0; i--){
+        fprintf(fin, "|");
+    for(j=0; j<8; j++){
+        
+        fprintf(fin, "%c", szachownica[j][i]);
+        fprintf(fin, "|");
+    }
+    fprintf(fin, "\n");
+}
+fclose(fin);
+}
