@@ -63,3 +63,44 @@ void file_send(int **szachownica){
 }
 fclose(fin);
 }
+
+void file_download(int **szachownica, struct Kolor *zespol){
+    int i=8, j=0, licznik=0;
+    char c;
+     FILE *fin;
+    fin = fopen("dane", "r");
+    while((c = (fgetc(fin)))!= EOF){
+            switch(c){
+            case ' ':
+                    j++;
+             if(j>=8){
+                 i--;
+                    j=j%8;
+            }
+                break;
+            case 'P':
+                j++;
+             if(j>=8){
+                 i--;
+                    j=j%8;
+                    }
+
+                    zespol[0].pion[licznik].x=j;
+            zespol[0].pion[licznik].y=i;
+            printf("%d %d\n", zespol[0].pion[licznik].x, zespol[0].pion[licznik].y);
+        
+            wstaw(szachownica, zespol[0].pion[licznik]);
+            licznik++;
+            break;
+            default:
+            break;
+
+            }
+            
+        
+    
+    }
+    
+    
+fclose(fin);
+}

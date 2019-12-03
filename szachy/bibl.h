@@ -1,10 +1,10 @@
 struct Kolor{
-    struct Figura *pion[8];
-    struct Figura *skoczek[2];
-    struct Figura *goniec[2];
-    struct Figura *wierza[2];
-    struct Figura *hetman[1];
-    struct Figura *krol[1];
+    struct Figura *pion;
+    struct Figura *skoczek;
+    struct Figura *goniec;
+    struct Figura *wierza;
+    struct Figura *hetman;
+    struct Figura *krol;
 };
 struct Figura{
     char *symbol;
@@ -25,3 +25,4 @@ void usun(int **szachownica, struct Figura f);
 void przesun(int **szachownica, struct Figura *f, struct Wektor ruch);
 void wyswietl(int **szachownica);
 void file_send(int **szachownica);
+void file_download(int **szachownica, struct Kolor *zespol);
