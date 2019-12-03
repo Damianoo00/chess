@@ -2,6 +2,13 @@
 #include <stdio.h>
 #include "bibl.h"
 
+#define PIONEK bierka[0]
+#define SKOCZEK bierka[1]
+#define GONIEC bierka[2]
+#define WIERZA bierka[3]
+#define HETMAN bierka[4]
+#define KROL bierka[5]
+
 
 
 
@@ -65,42 +72,37 @@ fclose(fin);
 }
 
 void file_download(int **szachownica, struct Kolor *zespol){
-    int i=8, j=0, licznik=0;
+    int i=8, j=0, licznik[12]={0,0,0,0,0,0,0,0,0,0,0,0}, d, k;
     char c;
      FILE *fin;
     fin = fopen("dane", "r");
+    
     while((c = (fgetc(fin)))!= EOF){
-            switch(c){
-            case ' ':
-                    j++;
-             if(j>=8){
+        if(c!='|'&& c!='\n'){
+         j++;
+             if(j>8){
                  i--;
-                    j=j%8;
+                    j=1;
             }
-                break;
-            case 'P':
-                j++;
-             if(j>=8){
-                 i--;
-                    j=j%8;
-                    }
-
-                    zespol[0].pion[licznik].x=j;
-            zespol[0].pion[licznik].y=i;
-            printf("%d %d\n", zespol[0].pion[licznik].x, zespol[0].pion[licznik].y);
         
-            wstaw(szachownica, zespol[0].pion[licznik]);
-            licznik++;
-            break;
-            default:
-            break;
+        for (d=0; d<6; d++){
+            for(k=1; k>=0; k--){
+            if (c==zespol[k].bierka[d]->symbol[0]){
+                zespol[k].bierka[d][licznik[d*2+k]].x=j;
+            zespol[k].bierka[d][licznik[d*2+k]].y=i;
+            printf("%c %d %d\n", zespol[k].bierka[d]->symbol[0],zespol[k].bierka[d][licznik[d*2+k]].x, zespol[k].bierka[d][licznik[d*2+k]].y);
+        
+            wstaw(szachownica, (zespol[k].bierka[d][licznik[d*2+k]]));
+            licznik[d*2+k]++;
 
             }
-            
-        
-    
+            }
+        }
     }
-    
-    
+    }
+           
+        
 fclose(fin);
 }
+
+
