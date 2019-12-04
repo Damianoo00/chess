@@ -11,4 +11,4 @@ main: $(OBJS)
 	cc $< -c 
 
 test: main
-	./main ../../L06/dane
+	./main
