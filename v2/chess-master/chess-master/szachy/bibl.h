@@ -14,6 +14,7 @@ struct Wektor{
 
 
 int zakaz_przeskakiwania(int x, int y, int vx, int vy, int **szachownica);
+int zakaz_wchodzenia_na_wlasne_bierki(int x, int y, int vx, int vy, int **szachownica);
 int zasady_podstawowe(int x, int y, int vx, int vy, int **szachownica);
 int zakaz_wyjscia_poza_plansze(int x, int y, int vx, int vy);
 void wstaw(int **szachownica, struct Figura f);
