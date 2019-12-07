@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include "bibl.h"
 
+#define LR_PIONEK 2
+#define LR_WIERZA 28
+#define LR_GONIEC 28
+#define LR_SKOCZEK 8
+#define LR_HETMAN 56
+#define LR_KROL 8
 #define PIONEK bierka[0]
 #define SKOCZEK bierka[1]
 #define GONIEC bierka[2]
@@ -12,7 +18,7 @@
 
 int main(){
     int i, j, k, l, w, m;
-    struct Wektor pionek_r[2] = {{0,1},{0,2}}; 
+     
     struct Figura empty = {" "};
     struct Kolor zespol[2];
     zespol[0].bierka = malloc(6*sizeof(struct Figura));
@@ -27,24 +33,56 @@ int main(){
         
     }
     
-
+struct Wektor pionek_r[2] = {{0,1},{0,2}};
+struct Wektor pionek_r2[2] = {{0,-1},{0,-2}};
+struct Wektor wierza_r[28] = {{0,-1},{0,-2},{0,-3},{0,-4},{0,-5},{0,-6},{0,-7},
+                            {0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7},
+                            {1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0},
+                            {-1,0},{-2,0},{-3,0},{-4,0},{-5,0},{-6,0},{-7,0}};
+struct Wektor goniec_r[28] = {{-1,-1},{-2,-2},{-3,-3},{-4,-4},{-5,-5},{-6,-6},{-7,-7},
+                            {1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},
+                            {1,-1},{2,-2},{3,-3},{4,-4},{5,-5},{6,-6},{7,-7},
+                            {-1,1},{-2,2},{-3,3},{-4,4},{-5,5},{-6,6},{-7,7}};
+struct Wektor skoczek_r[8] = {{2,-1},{2,1},{-2,1},{-2,-1},{1,2},{1,-2},{-1,-2},{-1,2}};
+struct Wektor hetman_r[56] = {{0,-1},{0,-2},{0,-3},{0,-4},{0,-5},{0,-6},{0,-7},
+                            {0,1},{0,2},{0,3},{0,4},{0,5},{0,6},{0,7},
+                            {1,0},{2,0},{3,0},{4,0},{5,0},{6,0},{7,0},
+                            {-1,0},{-2,0},{-3,0},{-4,0},{-5,0},{-6,0},{-7,0},
+                            {-1,-1},{-2,-2},{-3,-3},{-4,-4},{-5,-5},{-6,-6},{-7,-7},
+                            {1,1},{2,2},{3,3},{4,4},{5,5},{6,6},{7,7},
+                            {1,-1},{2,-2},{3,-3},{4,-4},{5,-5},{6,-6},{7,-7},
+                            {-1,1},{-2,2},{-3,3},{-4,4},{-5,5},{-6,6},{-7,7}};
+struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}};
+    
     for (w=0; w<8; w++){
         zespol[0].PIONEK[w].symbol="P";
+        zespol[0].PIONEK[w].ruch = pionek_r;
         zespol[1].PIONEK[w].symbol="p";
+        zespol[1].PIONEK[w].ruch = pionek_r2;
     }
     for (m=0; m<2; m++){
         zespol[0].WIERZA[m].symbol="W";
+        zespol[0].WIERZA[w].ruch = wierza_r;
         zespol[1].WIERZA[m].symbol="w";
+        zespol[1].WIERZA[w].ruch = wierza_r;
         zespol[0].SKOCZEK[m].symbol="S";
+        zespol[0].SKOCZEK[w].ruch = skoczek_r;
         zespol[1].SKOCZEK[m].symbol="s";
+        zespol[1].SKOCZEK[w].ruch = skoczek_r;
         zespol[0].GONIEC[m].symbol="G";
+        zespol[0].GONIEC[w].ruch = goniec_r;
         zespol[1].GONIEC[m].symbol="g";
+        zespol[1].GONIEC[w].ruch = goniec_r;
     }
     zespol[0].HETMAN[0].symbol="H";
+    zespol[0].HETMAN[w].ruch = hetman_r;
     zespol[1].HETMAN[0].symbol="h";
+    zespol[1].HETMAN[w].ruch = hetman_r;
 
     zespol[0].KROL[0].symbol="K";
+    zespol[0].KROL[w].ruch = krol_r;
     zespol[1].KROL[0].symbol="k";
+    zespol[1].KROL[w].ruch = krol_r;
 
 
     
@@ -70,11 +108,12 @@ wyswietl(szachownica);
 file_send(szachownica);*/
 file_download(szachownica, zespol);
 wyswietl(szachownica);
-przesun(szachownica, &zespol[0].PIONEK[2], pionek_r[1]);
+przesun(szachownica, &zespol[0].PIONEK[2], zespol[0].PIONEK[2].ruch[1]);
 wyswietl(szachownica);
-przesun(szachownica, &zespol[0].PIONEK[7], pionek_r[0]);
+przesun(szachownica, &zespol[1].PIONEK[7], zespol[1].PIONEK[7].ruch[1]);
 wyswietl(szachownica);
-file_send(szachownica);
+
+//file_send(szachownica);
 
    
 free(szachownica);
