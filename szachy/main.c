@@ -16,7 +16,7 @@
 #define KROL bierka[5]
 
 
-int main(){
+int main(int argc, char **argv){
     int i, j, k, l, w, m;
      
     struct Figura empty = {" "};
@@ -62,27 +62,27 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
     }
     for (m=0; m<2; m++){
         zespol[0].WIERZA[m].symbol="W";
-        zespol[0].WIERZA[w].ruch = wierza_r;
+        zespol[0].WIERZA[m].ruch = wierza_r;
         zespol[1].WIERZA[m].symbol="w";
-        zespol[1].WIERZA[w].ruch = wierza_r;
+        zespol[1].WIERZA[m].ruch = wierza_r;
         zespol[0].SKOCZEK[m].symbol="S";
-        zespol[0].SKOCZEK[w].ruch = skoczek_r;
+        zespol[0].SKOCZEK[m].ruch = skoczek_r;
         zespol[1].SKOCZEK[m].symbol="s";
-        zespol[1].SKOCZEK[w].ruch = skoczek_r;
+        zespol[1].SKOCZEK[m].ruch = skoczek_r;
         zespol[0].GONIEC[m].symbol="G";
-        zespol[0].GONIEC[w].ruch = goniec_r;
+        zespol[0].GONIEC[m].ruch = goniec_r;
         zespol[1].GONIEC[m].symbol="g";
-        zespol[1].GONIEC[w].ruch = goniec_r;
+        zespol[1].GONIEC[m].ruch = goniec_r;
     }
     zespol[0].HETMAN[0].symbol="H";
-    zespol[0].HETMAN[w].ruch = hetman_r;
+    zespol[0].HETMAN[0].ruch = hetman_r;
     zespol[1].HETMAN[0].symbol="h";
-    zespol[1].HETMAN[w].ruch = hetman_r;
+    zespol[1].HETMAN[0].ruch = hetman_r;
 
     zespol[0].KROL[0].symbol="K";
-    zespol[0].KROL[w].ruch = krol_r;
+    zespol[0].KROL[0].ruch = krol_r;
     zespol[1].KROL[0].symbol="k";
-    zespol[1].KROL[w].ruch = krol_r;
+    zespol[1].KROL[0].ruch = krol_r;
 
 
     
@@ -106,14 +106,14 @@ przesun(szachownica, &zespol[0].pion[0], zespol[0].pion[0].ruch[0]);
 przesun(szachownica, &pionek[1], pionek[1].ruch[1]);
 wyswietl(szachownica);
 file_send(szachownica);*/
-file_download(szachownica, zespol);
+file_download(argv[1],szachownica, zespol);
 wyswietl(szachownica);
 przesun(szachownica, &zespol[0].PIONEK[2], zespol[0].PIONEK[2].ruch[1]);
 wyswietl(szachownica);
 przesun(szachownica, &zespol[1].PIONEK[7], zespol[1].PIONEK[7].ruch[1]);
 wyswietl(szachownica);
 
-//file_send(szachownica);
+//file_send(argv[1], szachownica);
 
    
 free(szachownica);

@@ -21,6 +21,5 @@ void wstaw(int **szachownica, struct Figura f);
 void usun(int **szachownica, struct Figura f);
 void przesun(int **szachownica, struct Figura *f, struct Wektor ruch);
 void wyswietl(int **szachownica);
-void file_send(int **szachownica);
-void file_download(int **szachownica, struct Kolor *zespol);
-void file_download_v2(int **szachownica, struct Kolor *zespol);
+void file_send(char *plik, int **szachownica);
+void file_download(char *plik, int **szachownica, struct Kolor *zespol);

@@ -97,10 +97,10 @@ void wyswietl(int **szachownica){
 }
 }
 
-void file_send(int **szachownica){
+void file_send(char *plik, int **szachownica){
     int i, j;
     FILE *fin;
-    fin = fopen("dane", "w");
+    fin = fopen(plik, "w");
     fprintf(fin, "\n");
     for (i=7; i>=0; i--){
         fprintf(fin, "|");
@@ -114,11 +114,11 @@ void file_send(int **szachownica){
 fclose(fin);
 }
 
-void file_download(int **szachownica, struct Kolor *zespol){
+void file_download(char *plik, int **szachownica, struct Kolor *zespol){
     int i=8, j=0, licznik[12]={0,0,0,0,0,0,0,0,0,0,0,0}, d, k;
     char c;
      FILE *fin;
-    fin = fopen("dane", "r");
+    fin = fopen(plik, "r");
     
     while((c = (fgetc(fin)))!= EOF){
         if(c!='|'&& c!='\n'){
