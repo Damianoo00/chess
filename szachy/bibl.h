@@ -6,6 +6,7 @@ struct Figura{
     int x;
     int y;
     struct Wektor *ruch;
+    int l_ruchow;
 };
 struct Wektor{
     int x;
