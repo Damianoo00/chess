@@ -171,4 +171,29 @@ void wszystkie_ruchy_zespolu (int **szachownica, struct Kolor *z){
     
 }
 
+int ocena (int **szachownica, struct Figura *f, struct Wektor ruch, struct Kolor zespol_p){
+    int i;
+    if(f->x + ruch.x == zespol_p.KROL[0].x && f->y + ruch.y == zespol_p.KROL[0].y)
+        return 100;
+    
+    if(f->x + ruch.x == zespol_p.HETMAN[0].x && f->y + ruch.y == zespol_p.HETMAN[0].y)
+        return 50;
+    
+        for(i=0; i<2; i++){
+            if(f->x + ruch.x == zespol_p.GONIEC[i].x && f->y + ruch.y == zespol_p.GONIEC[i].y)
+            return 50;
+            if(f->x + ruch.x == zespol_p.SKOCZEK[i].x && f->y + ruch.y == zespol_p.SKOCZEK[i].y)
+            return 40;
+            if(f->x + ruch.x == zespol_p.WIERZA[i].x && f->y + ruch.y == zespol_p.WIERZA[i].y)
+            return 30;
+        }
+
+        for(i=0; i<8; i++){
+            if(f->x + ruch.x == zespol_p.PIONEK[i].x && f->y + ruch.y == zespol_p.PIONEK[i].y)
+            return 10;
+            
+        }
+return 0;
+    }
+
 

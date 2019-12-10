@@ -119,10 +119,9 @@ wyswietl(szachownica);
 file_send(szachownica);*/
 file_download(argv[1],szachownica, zespol);
 wyswietl(szachownica);
-wszystkie_ruchy_zespolu(szachownica, &zespol[1]);
-wyswietl(szachownica);
-wszystkie_ruchy_zespolu(szachownica, &zespol[0]);
-wyswietl(szachownica);
+//wszystkie_ruchy_zespolu(szachownica, &zespol[1]);
+
+printf("%d", ocena(szachownica, &zespol[1].PIONEK[0], zespol[1].PIONEK[0].ruch[0], zespol[0]));
 
 
 //file_send(argv[1], szachownica);

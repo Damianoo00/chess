@@ -26,3 +26,4 @@ void file_send(char *plik, int **szachownica);
 void file_download(char *plik, int **szachownica, struct Kolor *zespol);
 void wszystkie_ruchy_figury (int **szachownica, struct Figura *f);
 void wszystkie_ruchy_zespolu (int **szachownica, struct Kolor *z);
+int ocena (int **szachownica, struct Figura *f, struct Wektor ruch, struct Kolor zespol_p);
