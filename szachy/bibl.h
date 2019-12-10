@@ -24,3 +24,5 @@ void przesun(int **szachownica, struct Figura *f, struct Wektor ruch);
 void wyswietl(int **szachownica);
 void file_send(char *plik, int **szachownica);
 void file_download(char *plik, int **szachownica, struct Kolor *zespol);
+void wszystkie_ruchy_figury (int **szachownica, struct Figura *f);
+void wszystkie_ruchy_zespolu (int **szachownica, struct Kolor *z);

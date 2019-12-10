@@ -9,7 +9,6 @@
 #define HETMAN bierka[4]
 #define KROL bierka[5]
 
-
 int w_bezwzgl (int x){
     if (x<0) return (-1)*x;
     return x;
@@ -146,6 +145,30 @@ void file_download(char *plik, int **szachownica, struct Kolor *zespol){
            
         
 fclose(fin);
+}
+
+void wszystkie_ruchy_figury (int **szachownica, struct Figura *f){
+    int i;
+    for (i=0; i<f->l_ruchow; i++){
+        przesun(szachownica, f, f->ruch[i]);
+        
+    }
+
+}
+
+void wszystkie_ruchy_zespolu (int **szachownica, struct Kolor *z){
+    int i;
+    for (i=0; i<8; i++){
+        wszystkie_ruchy_figury (szachownica, &z->PIONEK[i]);
+    }
+    for (i=0; i<2; i++){
+        wszystkie_ruchy_figury (szachownica, &z->WIERZA[i]);
+        wszystkie_ruchy_figury (szachownica, &z->SKOCZEK[i]);
+        wszystkie_ruchy_figury (szachownica, &z->GONIEC[i]);
+    }
+    wszystkie_ruchy_figury (szachownica, &z->HETMAN[0]);
+    wszystkie_ruchy_figury (szachownica, &z->KROL[0]);
+    
 }
 
 

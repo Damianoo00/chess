@@ -13,4 +13,4 @@ test: main
 	./main dane
 
 clean:
-	rm -f bibl.o main.o main
+	rm -f main.o bibl.o main

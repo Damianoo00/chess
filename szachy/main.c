@@ -2,19 +2,12 @@
 #include <stdio.h>
 #include "bibl.h"
 
-#define LR_PIONEK 2
-#define LR_WIERZA 28
-#define LR_GONIEC 28
-#define LR_SKOCZEK 8
-#define LR_HETMAN 56
-#define LR_KROL 8
 #define PIONEK bierka[0]
 #define SKOCZEK bierka[1]
 #define GONIEC bierka[2]
 #define WIERZA bierka[3]
 #define HETMAN bierka[4]
 #define KROL bierka[5]
-
 
 int main(int argc, char **argv){
     int i, j, k, l, w, m;
@@ -114,8 +107,7 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
     for(j=0; j<8; j++){
         szachownica[j][i]=empty.symbol[0];
     }
-    
-}
+    }
     
 
 /*wstaw (szachownica, pionek[0]);
@@ -127,10 +119,11 @@ wyswietl(szachownica);
 file_send(szachownica);*/
 file_download(argv[1],szachownica, zespol);
 wyswietl(szachownica);
-przesun(szachownica, &zespol[0].PIONEK[2], zespol[0].PIONEK[2].ruch[1]);
+wszystkie_ruchy_zespolu(szachownica, &zespol[1]);
 wyswietl(szachownica);
-przesun(szachownica, &zespol[1].PIONEK[7], zespol[1].PIONEK[7].ruch[1]);
+wszystkie_ruchy_zespolu(szachownica, &zespol[0]);
 wyswietl(szachownica);
+
 
 //file_send(argv[1], szachownica);
 
