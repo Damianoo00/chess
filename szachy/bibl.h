@@ -13,7 +13,8 @@ struct Wektor{
     int y;
 };
 
-
+int alfabetaMIN(int **szachownica, int ocena_ruchu, struct Kolor *zespol, int  glebokosc,int alfa,int beta);
+int alfabetaMIN(int **szachownica, int ocena_ruchu, struct Kolor *zespol, int  glebokosc,int alfa,int beta);
 int zakaz_przeskakiwania(int x, int y, int vx, int vy, int **szachownica);
 int zakaz_wchodzenia_na_wlasne_bierki(int x, int y, int vx, int vy, int **szachownica);
 int zasady_podstawowe(int x, int y, int vx, int vy, int **szachownica);

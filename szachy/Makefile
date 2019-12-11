@@ -1,6 +1,6 @@
 
 
-OBJS=main.o bibl.o
+OBJS=main.o bibl.o alfabetaa.o
 
 main: $(OBJS)
 	cc $^ -Wall -o main
@@ -13,4 +13,4 @@ test: main
 	./main dane
 
 clean:
-	rm -f main.o bibl.o main
+	rm -f main.o bibl.o alfabetaa.o main
