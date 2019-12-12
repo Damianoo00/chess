@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bibl.h"
-#include "alfabetaa.c"
 
 #define PIONEK bierka[0]
 #define SKOCZEK bierka[1]
@@ -51,54 +50,65 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
     for (w=0; w<8; w++){
         zespol[0].PIONEK[w].symbol="P";
         zespol[0].PIONEK[w].ruch = pionek_r;
-        zespol[0].PIONEK[w].l_ruchow= 2;
+        zespol[0].PIONEK->l_ruchow= 2;
+        zespol[0].PIONEK->il_bierek= 8;
 
         zespol[1].PIONEK[w].symbol="p";
         zespol[1].PIONEK[w].ruch = pionek_r2;
-        zespol[1].PIONEK[w].l_ruchow = 2;
+        zespol[1].PIONEK->l_ruchow = 2;
+        zespol[1].PIONEK->il_bierek = 8;
     }
     for (m=0; m<2; m++){
         zespol[0].WIERZA[m].symbol="W";
         zespol[0].WIERZA[m].ruch = wierza_r;
-        zespol[0].WIERZA[m].l_ruchow = 28;
+        zespol[0].WIERZA->l_ruchow = 28;
+        zespol[0].WIERZA->il_bierek = 2;
 
         zespol[1].WIERZA[m].symbol="w";
         zespol[1].WIERZA[m].ruch = wierza_r;
-        zespol[1].WIERZA[m].l_ruchow = 28;
+        zespol[1].WIERZA->l_ruchow = 28;
+        zespol[1].WIERZA->il_bierek = 2;
 
         zespol[0].SKOCZEK[m].symbol="S";
         zespol[0].SKOCZEK[m].ruch = skoczek_r;
-        zespol[0].SKOCZEK[m].l_ruchow = 8;
+        zespol[0].SKOCZEK->l_ruchow = 8;
+        zespol[0].SKOCZEK->il_bierek = 2;
 
         zespol[1].SKOCZEK[m].symbol="s";
         zespol[1].SKOCZEK[m].ruch = skoczek_r;
-        zespol[1].SKOCZEK[m].l_ruchow = 8;
+        zespol[1].SKOCZEK->l_ruchow = 8;
+        zespol[1].SKOCZEK->il_bierek = 2;
 
         zespol[0].GONIEC[m].symbol="G";
         zespol[0].GONIEC[m].ruch = goniec_r;
-        zespol[0].GONIEC[m].l_ruchow = 28;
+        zespol[0].GONIEC->l_ruchow = 28;
+        zespol[0].GONIEC->il_bierek = 2;
 
         zespol[1].GONIEC[m].symbol="g";
         zespol[1].GONIEC[m].ruch = goniec_r;
-        zespol[1].GONIEC[m].l_ruchow = 28;
+        zespol[1].GONIEC->l_ruchow = 28;
+        zespol[1].GONIEC->il_bierek = 2;
     }
     zespol[0].HETMAN[0].symbol="H";
     zespol[0].HETMAN[0].ruch = hetman_r;
-    zespol[0].HETMAN[0].l_ruchow = 56;
+    zespol[0].HETMAN->l_ruchow = 56;
+    zespol[0].HETMAN->il_bierek = 1;
+
     zespol[1].HETMAN[0].symbol="h";
     zespol[1].HETMAN[0].ruch = hetman_r;
-    zespol[1].HETMAN[0].l_ruchow = 56;
+    zespol[1].HETMAN->l_ruchow = 56;
+    zespol[1].HETMAN->il_bierek = 1;
 
     zespol[0].KROL[0].symbol="K";
     zespol[0].KROL[0].ruch = krol_r;
-    zespol[0].KROL[0].l_ruchow = 8;
+    zespol[0].KROL->l_ruchow = 8;
+    zespol[0].KROL->il_bierek = 1;
 
     zespol[1].KROL[0].symbol="k";
     zespol[1].KROL[0].ruch = krol_r;
-    zespol[1].KROL[0].l_ruchow = 8;
+    zespol[1].KROL->l_ruchow = 8;
+    zespol[1].KROL->il_bierek = 2;
 
-
-    
     
 
     int **szachownica =(int**)malloc(8*sizeof(int*)); 
@@ -120,9 +130,11 @@ wyswietl(szachownica);
 file_send(szachownica);*/
 file_download(argv[1],szachownica, zespol);
 wyswietl(szachownica);
+tablica_ruchow(szachownica, 204, zespol[0]); //207
+wyswietl(szachownica);
 //wszystkie_ruchy_zespolu(szachownica, &zespol[1]);
 
-printf("%d", alfabetaMAX(**szachownica, 0, zespol, 3, 0, 0 ));
+
 
 
 //file_send(argv[1], szachownica);

@@ -46,7 +46,7 @@ int zakaz_przeskakiwania(int x, int y, int vx, int vy, int **szachownica){
         else vy=vy+1;
     }
     while ((vx!=0 || vy!=0)){
-        printf("Wartosc pola: %d",szachownica[(x-1)+vx][(y-1)+vy] );
+       // printf("Wartosc pola: %d",szachownica[(x-1)+vx][(y-1)+vy] );
         if (szachownica[(x-1)+vx][(y-1)+vy]!=32) return 0;
         if (vx>0) vx=vx-1;
         if (vx<0)vx=vx+1;
@@ -70,6 +70,7 @@ int zasady_podstawowe(int x, int y, int vx, int vy, int **szachownica){
     if (zakaz_wyjscia_poza_plansze(x, y, vx, vy)==0) return 0;
     if (zakaz_wchodzenia_na_wlasne_bierki(x, y, vx, vy, szachownica)==0) return 0;
     if (zakaz_przeskakiwania(x, y, vx, vy, szachownica)==0) return 0;
+    if(x==0 || y==0) return 0;
     
     return 1;
 }
@@ -147,29 +148,7 @@ void file_download(char *plik, int **szachownica, struct Kolor *zespol){
 fclose(fin);
 }
 
-void wszystkie_ruchy_figury (int **szachownica, struct Figura *f){
-    int i;
-    for (i=0; i<f->l_ruchow; i++){
-        przesun(szachownica, f, f->ruch[i]);
-        
-    }
 
-}
-
-void wszystkie_ruchy_zespolu (int **szachownica, struct Kolor *z){
-    int i;
-    for (i=0; i<8; i++){
-        wszystkie_ruchy_figury (szachownica, &z->PIONEK[i]);
-    }
-    for (i=0; i<2; i++){
-        wszystkie_ruchy_figury (szachownica, &z->WIERZA[i]);
-        wszystkie_ruchy_figury (szachownica, &z->SKOCZEK[i]);
-        wszystkie_ruchy_figury (szachownica, &z->GONIEC[i]);
-    }
-    wszystkie_ruchy_figury (szachownica, &z->HETMAN[0]);
-    wszystkie_ruchy_figury (szachownica, &z->KROL[0]);
-    
-}
 
 int ocena (int **szachownica, struct Figura *f, struct Wektor ruch, struct Kolor zespol_p){
     int i;
@@ -195,5 +174,20 @@ int ocena (int **szachownica, struct Figura *f, struct Wektor ruch, struct Kolor
         }
 return 0;
     }
+
+void tablica_ruchow (int **szachownica, int n, struct Kolor z){
+        int i, j, k, zl, licznik=0;
+        for (i=0; i<6; i++){
+            
+            for(j=0; j<z.bierka[i]->il_bierek; j++){
+                for(k=0; k<z.bierka[i]->l_ruchow; k++){
+                    if(licznik ==n)
+                    przesun(szachownica, &z.bierka[i][j], z.bierka[i]->ruch[k]);
+                    licznik++;
+                }
+            }
+        }
+}
+
 
 

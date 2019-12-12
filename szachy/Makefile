@@ -1,6 +1,6 @@
 
 
-OBJS=main.o bibl.o alfabetaa.o
+OBJS=main.o bibl.o
 
 main: $(OBJS)
 	cc $^ -Wall -o main
