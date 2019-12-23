@@ -12,6 +12,12 @@
 
 int main(int argc, char **argv){
     int l;
+    struct Wyznacznik alpha_p;
+    alpha_p.nr = 0;
+    alpha_p.ocena = -1000;
+    struct Wyznacznik beta_p;
+    beta_p.nr = 0;
+    beta_p.ocena = 1000;
     struct Szachownica szachownica;
     szachownica.zespol=malloc(2*sizeof(struct Kolor));
     
@@ -116,7 +122,7 @@ file_download(argv[1],&szachownica);
 
 wyswietl(szachownica);
 
-printf("%d",tablica_ruchow_ocena(szachownica, 0, szachownica.zespol[0], szachownica.zespol[1])); //207
+printf("%d",tablica_ruchow_ocena(szachownica, alphaBeta_v2(szachownica, alpha_p,beta_p, 1), szachownica.zespol[0], szachownica.zespol[1])); //207
 //przesun(szachownica, &szachownica.zespol[0].bierka[0][1], szachownica.zespol[0].bierka[0]->ruch[1]);
 //struct Wyznacznik alpha = {-1000, 0};
 //struct Wyznacznik beta = {1000, 0};
