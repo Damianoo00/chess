@@ -35,3 +35,4 @@ int ocena (char **szachownica, struct Figura *f, struct Wektor ruch, struct Kolo
 int AlphaBeta (struct Szachownica szachownica, int depth, struct Wyznacznik alpha, struct Wyznacznik beta);
 void cpy_szach(struct Szachownica *sz_dest, struct Szachownica sz_source);
 int alphaBeta_v2(struct Szachownica szachownica, struct Wyznacznik alpha, struct Wyznacznik beta, int depthleft );
+int alfabeta( struct Szachownica szachownica, int alpha, int beta, int depthleft, int n );

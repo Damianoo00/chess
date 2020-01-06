@@ -121,15 +121,17 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
 file_download(argv[1],&szachownica);
 
 wyswietl(szachownica);
+printf("dupa");
 
-printf("%d",tablica_ruchow_ocena(szachownica, alphaBeta_v2(szachownica, alpha_p,beta_p, 1), szachownica.zespol[0], szachownica.zespol[1])); //207
+printf("  %d", alfabeta(szachownica, -1000000, 1000000,1, 207));
+//printf("%d",tablica_ruchow_ocena(szachownica, 100,  szachownica.zespol[0], szachownica.zespol[1])); //207
 //przesun(szachownica, &szachownica.zespol[0].bierka[0][1], szachownica.zespol[0].bierka[0]->ruch[1]);
 //struct Wyznacznik alpha = {-1000, 0};
 //struct Wyznacznik beta = {1000, 0};
 //printf("%d",tablica_ruchow_ocena(szachownica, AlphaBeta(szachownica, 3, alpha, beta), szachownica.zespol[0], szachownica.zespol[1]));
 
 
-wyswietl(szachownica);
+//wyswietl(szachownica);
 
 //file_send(argv[1],szachownica);
 

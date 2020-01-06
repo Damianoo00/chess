@@ -17,7 +17,7 @@ int w_bezwzgl (int x){
 void przesun(struct Szachownica szachownica, struct Figura *f, struct Wektor ruch, char szach_pom[8][8]){
        
         
-    if (zasady_podstawowe(f->x, f->y,ruch.x, ruch.y, szach_pom)){
+   if (zasady_podstawowe(f->x, f->y,ruch.x, ruch.y, szach_pom)){
     f->x+=ruch.x;
     f->y+=ruch.y;
     }
@@ -58,9 +58,9 @@ int zakaz_wyjscia_poza_plansze(int x, int y, int vx, int vy){
 }
 
 int zasady_podstawowe(int x, int y, int vx, int vy, char szachownica[8][8]){
-    if (zakaz_wyjscia_poza_plansze(x, y, vx, vy)==0) return 0;
-    if (zakaz_wchodzenia_na_wlasne_bierki(x, y, vx, vy, szachownica)==0) return 0;
-    if (zakaz_przeskakiwania(x, y, vx, vy, szachownica)==0) return 0;
+    //if (zakaz_wyjscia_poza_plansze(x, y, vx, vy)==0) return 0;
+    //if (zakaz_wchodzenia_na_wlasne_bierki(x, y, vx, vy, szachownica)==0) return 0;
+    //if (zakaz_przeskakiwania(x, y, vx, vy, szachownica)==0) return 0;
     
     return 1;
 }
@@ -129,7 +129,7 @@ int tablica_ruchow_ocena (struct Szachownica szachownica, int n, struct Kolor z,
 int  m, d;
     for(d=7; d>=0; d--){
     for(m=0; m<8; m++){
-        
+        szach_pom[d][m] = 32;
     for(i=0; i<2; i++)
     for(j=0; j<6; j++)
     for(k=0; k<szachownica.zespol[i].bierka[j]->il_bierek; k++){
@@ -148,9 +148,9 @@ int  m, d;
             for(j=0; j<z.bierka[i]->il_bierek; j++){
                 for(k=0; k<z.bierka[i]->l_ruchow; k++){
                     if(licznik ==n){
-                       //ocena_p = ocena(szach_pom, &z.bierka[i][j], z.bierka[i]->ruch[k], z2);
+                       ocena_p = ocena(szach_pom, &z.bierka[i][j], z.bierka[i]->ruch[k], z2);
                     przesun(szachownica, &z.bierka[i][j], z.bierka[i]->ruch[k], szach_pom);
-                    //return ocena_p;
+                    return ocena_p;
                     }
                     licznik++;
                 }
@@ -183,64 +183,7 @@ int ocena (char **szachownica, struct Figura *f, struct Wektor ruch, struct Kolo
 return 0;
     }
 
-int AlphaBeta (struct Szachownica szachownica, int depth, struct Wyznacznik alpha, struct Wyznacznik beta)
-{
-    
-    struct Szachownica szachownica_d;
-    cpy_szach(&szachownica_d, szachownica);
-    wyswietl(szachownica_d);
-    int i, ocena;
-    for(i=0; i<207; i++){
-        //printf("%d ", tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[0], szachownica_d.zespol[1]));
-        ocena = tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[0], szachownica_d.zespol[1]);
-        if (ocena==100 || depth ==0) return i;
-        if (ocena > alpha.ocena){
-            alpha.nr = i;
-        }
-        return AlphaBeta (szachownica_d, depth-1 , alpha, beta);
-    
-    /*if(alpha.ocena >= beta.ocena){
-        return 0;
-    }*/
-    return alpha.nr;
-    }
 
-    for(i=0; i<207; i++){
-        printf("%d ", tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[1], szachownica_d.zespol[0]));
-        beta.ocena = tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[1], szachownica_d.zespol[0]);
-        if (ocena==100 || depth ==0) return i;
-        if (ocena < beta.ocena){
-            beta.nr = i;
-        }
-        return AlphaBeta (szachownica_d, depth-1 , alpha, beta);
-    }
-    if(alpha.ocena >= beta.ocena){
-        return 0;
-    }
-    return beta.nr;
-}
-
-int alphaBeta_v2(struct Szachownica szachownica, struct Wyznacznik alpha, struct Wyznacznik beta, int depthleft ) {
-    int i, score;
-    struct Szachownica szachownica_d;
-    cpy_szach(&szachownica_d, szachownica);
-
-   for ( i=0; i<207; i++)  {
-       if( depthleft == 0 ) return i;
-       struct Wyznacznik alpha_d;
-       alpha_d.nr = alpha.nr;
-       alpha_d.ocena = -alpha.ocena;
-        struct Wyznacznik beta_d;
-        beta_d.nr = beta.nr;
-        beta_d.ocena = -beta.ocena;
-      score = -tablica_ruchow_ocena(szachownica_d, alphaBeta_v2(szachownica_d, beta_d, alpha_d, depthleft - 1), szachownica_d.zespol[i%2], szachownica_d.zespol[i%2]);
-      if( score >= beta.ocena )
-         return beta.nr;   //  fail hard beta-cutoff
-      if( score > alpha.ocena )
-         alpha.ocena = score; // alpha acts like max in MiniMax
-   }
-   return alpha.nr;
-}
 
 void cpy_szach(struct Szachownica *sz_dest, struct Szachownica sz_source){
     int i,j,k,l;
@@ -268,6 +211,72 @@ for(k=0; k<sz_source.zespol[i].bierka[j]->il_bierek; k++){
 sz_dest->zespol[i].bierka[j][k].y = sz_source.zespol[i].bierka[j][k].y;
 sz_dest->zespol[i].bierka[j][k].x = sz_source.zespol[i].bierka[j][k].x;
 }}}
+}
+int pot(int a, int b){
+    int i;
+    if (b==0) return 1;
+    for(i=2; i<b; i++){
+        a*=a;
+    }
+    return a;
+}
+
+int czykoniecgry(struct Szachownica szachownica){
+    int k, l, m;
+    for(k=0; k<2; k++){
+        for(l = 0; l<5; l++){
+        for(m=0; m<szachownica.zespol[k].bierka[l]->il_bierek; m++){
+            
+            
+                if(szachownica.zespol[k].bierka[l][m].x != 0 && szachownica.zespol[k].bierka[l][m].y !=0 ){
+                    if (szachownica.zespol[k].bierka[l][m].x == szachownica.zespol[k].bierka[5]->x && szachownica.zespol[k].bierka[l][m].y == szachownica.zespol[k].bierka[5]->y)
+            { 
+                printf("%s %d %d\n", szachownica.zespol[k].bierka[l]->symbol, szachownica.zespol[k].bierka[l][m].x, szachownica.zespol[k].bierka[l][m].y);
+                printf("%s %d %d\n", szachownica.zespol[k].bierka[5]->symbol, szachownica.zespol[k].bierka[5]->x, szachownica.zespol[k].bierka[5]->y);
+                return 1;
+            }}
+        }}}
+        return 0;
+}
+
+int alfabeta( struct Szachownica szachownica, int alpha, int beta, int depthleft, int n )
+{  
+    
+    if (czykoniecgry(szachownica) || depthleft == 0){
+            return 3;
+    }
+        
+        
+        int i;
+        struct Szachownica szachownica_d;
+    cpy_szach(&szachownica_d, szachownica);
+    int ocena, k;
+    for(i=0; i<n; i++) 
+    {
+        if (i%2 == 0) k=1;
+        else k=0;
+        
+        
+        
+        ocena = tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[i%2], szachownica_d.zespol[k]);
+        
+         wyswietl(szachownica_d);
+       
+       int val;
+        val = -alfabeta(szachownica_d, -beta, -alpha, depthleft -1, n);
+        
+
+        if (val > alpha) 
+        {
+            alpha = val; // alfa=max(val,alfa);
+        }
+        if (alpha >= beta) 
+        {
+            return beta; // cutoff
+        }
+        
+    }
+    return alpha;
 }
 
 void file_send(char *plik, struct Szachownica szachownica){
