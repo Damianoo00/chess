@@ -1,17 +1,5 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "bibl.h"
-
-#define PIONEK bierka[0]
-#define SKOCZEK bierka[1]
-#define GONIEC bierka[2]
-#define WIERZA bierka[3]
-#define HETMAN bierka[4]
-#define KROL bierka[5]
-
-int main(int argc, char **argv){
-    int l;
+#include "bibl.c"
+int l;
     struct Wyznacznik alpha_p;
     alpha_p.nr = 0;
     alpha_p.ocena =  -1000;
@@ -114,24 +102,3 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
     szachownica.zespol[1].KROL->ruch = krol_r;
     szachownica.zespol[1].KROL->l_ruchow = 8;
     szachownica.zespol[1].KROL->il_bierek = 2;
-
-    
-
-
-file_download(argv[1],&szachownica);
-
-wyswietl(szachownica);
-printf("dupa");
-
-struct Wyznacznik wyz = alfabeta(szachownica, alpha_p, beta_p,1, 207);
-
- tablica_ruchow_ocena(szachownica, wyz.nr, szachownica.zespol[0], szachownica.zespol[1]);
-
-
-
-wyswietl(szachownica);
-
-//file_send(szachownica);
-
-    return 0;
-}
