@@ -120,16 +120,24 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
 
 file_download(argv[1],&szachownica);
 
+
+
+struct Wyznacznik wyz;
+wyz = alfabeta(szachownica, alpha_p, beta_p, 1, 207);
 wyswietl(szachownica);
-printf("dupa");
 
-struct Wyznacznik wyz = alfabeta(szachownica, alpha_p, beta_p,1, 207);
-
- tablica_ruchow_ocena(szachownica, wyz.nr, szachownica.zespol[0], szachownica.zespol[1]);
-
-
-
+ tablica_ruchow_ocena(szachownica,wyz.nr, szachownica.zespol[0], szachownica.zespol[1]);
+ printf("Najlepszy ruch:");
+ 
+ printf("Ocena: %d\n", wyz.ocena);
+ printf("Ruch nr: %d\n", wyz.nr);
 wyswietl(szachownica);
+
+//file_send("wynik", szachownica);
+
+
+
+
 
 //file_send(szachownica);
 

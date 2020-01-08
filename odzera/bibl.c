@@ -18,6 +18,7 @@ void przesun(struct Szachownica szachownica, struct Figura *f, struct Wektor ruc
        
         
    if (zasady_podstawowe(f->x, f->y,ruch.x, ruch.y, szach_pom)){
+       printf("Ruch figury: %s o wektor: [%d, %d]\n", f->symbol, f->x, f->y);
     f->x+=ruch.x;
     f->y+=ruch.y;
     }
@@ -35,7 +36,7 @@ int zakaz_przeskakiwania(int x, int y, int vx, int vy, char szachownica[8][8]){
         else vy=vy+1;
     }
     while ((vx!=0 || vy!=0)){
-        printf("Wartosc pola: %d",szachownica[(x-1)+vx][(y-1)+vy] );
+        //printf("Wartosc pola: %d",szachownica[(x-1)+vx][(y-1)+vy] );
         if (szachownica[(x-1)+vx][(y-1)+vy]!=32) return 0;
         if (vx>0) vx=vx-1;
         if (vx<0)vx=vx+1;
@@ -47,7 +48,7 @@ int zakaz_przeskakiwania(int x, int y, int vx, int vy, char szachownica[8][8]){
 int zakaz_wchodzenia_na_wlasne_bierki(int x, int y, int vx, int vy, char szachownica[8][8]){
     
     if (w_bezwzgl(szachownica[x-1][y-1]-szachownica[(x-1)+vx][(y-1)+vy])<=16) return 0;
-    printf("%c %c %c\n",szachownica[x-1][y-1],szachownica[(x-1)+vx][(y-1)+vy],  w_bezwzgl(szachownica[x-1][y-1]-szachownica[(x-1)+vx][(y-1)+vy]));
+    //printf("%c %c %c\n",szachownica[x-1][y-1],szachownica[(x-1)+vx][(y-1)+vy],  w_bezwzgl(szachownica[x-1][y-1]-szachownica[(x-1)+vx][(y-1)+vy]));
     return 1;
     }
 int zakaz_wyjscia_poza_plansze(int x, int y, int vx, int vy){
@@ -149,7 +150,7 @@ int  m, d;
             for(j=0; j<z.bierka[i]->il_bierek; j++){
                 for(k=0; k<z.bierka[i]->l_ruchow; k++){
                     if(licznik ==n){
-                       ocena_p = ocena(szach_pom, &z.bierka[i][j], z.bierka[i]->ruch[k], z2);
+                       ocena_p = ocena( &z.bierka[i][j], z.bierka[i]->ruch[k], z2);
                     przesun(szachownica, &z.bierka[i][j], z.bierka[i]->ruch[k], szach_pom);
                     return ocena_p;
                     }
@@ -159,7 +160,7 @@ int  m, d;
         }
 }
 
-int ocena (char **szachownica, struct Figura *f, struct Wektor ruch, struct Kolor zespol_p){
+int ocena ( struct Figura *f, struct Wektor ruch, struct Kolor zespol_p){
     int i;
     if(f->x + ruch.x == zespol_p.KROL[0].x && f->y + ruch.y == zespol_p.KROL[0].y)
         return 100;
@@ -243,9 +244,9 @@ int czykoniecgry(struct Szachownica szachownica){
 struct Wyznacznik alfabeta( struct Szachownica szachownica, struct Wyznacznik alpha, struct Wyznacznik beta, int depthleft, int n )
 {  
     
-    if (/*czykoniecgry(szachownica) ||*/ depthleft == 0){
-            
-            return beta;
+    if (czykoniecgry(szachownica) || depthleft == 0){
+        alpha.ocena = 100;
+            return alpha;
     }
         
         
@@ -259,37 +260,34 @@ struct Wyznacznik alfabeta( struct Szachownica szachownica, struct Wyznacznik al
         else k=0;
         
         
-        
-        tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[i%2], szachownica_d.zespol[k]);
-        
-         //wyswietl(szachownica_d);
+        ocena = tablica_ruchow_ocena(szachownica_d, i, szachownica_d.zespol[i%2], szachownica_d.zespol[k]);
+        printf("Ocena: %d\n ", ocena);
+         
        
        struct Wyznacznik val;
        beta.ocena = -beta.ocena;
-       alpha.ocena = ocena;
-       alpha.nr =i;
-       alpha.ocena= -alpha.ocena;
+       alpha. ocena = -alpha.ocena;
         val = alfabeta(szachownica_d, beta, alpha, depthleft -1, n);
-        
-
+        val.ocena = -val.ocena;
+        val.nr = i;
         if (val.ocena > alpha.ocena) 
         {
-            alpha = val; // alfa=max(val,alfa);
+            alpha.ocena = val.ocena;
+            alpha.nr = val.nr; // alfa=max(val,alfa);
         }
         if (alpha.ocena >= beta.ocena) 
         {
-            
             return beta; // cutoff
         }
-        
         
     }
     return alpha;
 }
 
-void file_send( struct Szachownica szachownica){
+void file_send(char *plik, struct Szachownica szachownica){
     FILE *fin;
-    fin = fopen("wynik", "a");
+    fin = fopen(plik, "w");
+   
     int i, j, k, l ,m, pom;
     fprintf(fin,"\n");
     for (i=7; i>=0; i--){

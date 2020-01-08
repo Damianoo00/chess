@@ -1,0 +1,5 @@
+Aby uruchomić program:
+-należy ustawić pionki: P, H, W, G, S, K, p, h, w, g, s, k. W szablonie w pliku "dane";
+- w terminalu, znajdując sie w katalogu z plikami wpisać komende "make play";
+Program policzy najlepsze rozwiązanie i wpisze je na ekran oraz szablon z wynikiem zapisze w pliku
+"wynik".

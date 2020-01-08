@@ -9,7 +9,7 @@ main: $(OBJS)
 %.o: %.c 
 	cc $< -c 
 
-test: main
+play: main
 	./main dane
 
 clean:
