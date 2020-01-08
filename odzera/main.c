@@ -19,6 +19,7 @@ int main(int argc, char **argv){
     beta_p.nr = 0;
     beta_p.ocena = 1000;
     struct Szachownica szachownica;
+     struct Szachownica szachownica_2;
     szachownica.zespol=malloc(2*sizeof(struct Kolor));
     
     szachownica.zespol[0].bierka = malloc(6*sizeof(struct Figura));
@@ -119,21 +120,21 @@ struct Wektor krol_r[8] = {{1,0},{0,1},{-1,0},{0,-1},{1,1},{-1,-1},{0,-1},{-1,0}
 
 
 file_download(argv[1],&szachownica);
-
-
+//cpy_szach(&szachownica_2, szachownica);
 
 struct Wyznacznik wyz;
 wyz = alfabeta(szachownica, alpha_p, beta_p, 1, 207);
 wyswietl(szachownica);
 
  tablica_ruchow_ocena(szachownica,wyz.nr, szachownica.zespol[0], szachownica.zespol[1]);
+ //tablica_ruchow_ocena(szachownica_2,wyz.nr, szachownica.zespol[0], szachownica.zespol[1]);
  printf("Najlepszy ruch:");
  
  printf("Ocena: %d\n", wyz.ocena);
  printf("Ruch nr: %d\n", wyz.nr);
 wyswietl(szachownica);
 
-//file_send("wynik", szachownica);
+//file_send("wynik", szachownica_2);
 
 
 
